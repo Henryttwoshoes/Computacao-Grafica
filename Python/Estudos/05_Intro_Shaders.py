@@ -63,10 +63,13 @@ def init():
     with open('shaders/05_fragmentShader.glsl', 'r') as file:
         fsSource = file.read()
 
+# Comandos abaixo são uma forma mais prática que a linguagem Python disponibiliza nesse módulo de OpenGL usado no programa. Esses códigos fazem os comandos em comentário logo abaixo dispensáveis para a implementação dos shaders.
     vsID = gls.compileShader(vsSource, GL_VERTEX_SHADER)
     fsID = gls.compileShader(fsSource, GL_FRAGMENT_SHADER)
     shaderID = gls.compileProgram(vsID, fsID)
 
+# ----------------------------
+# Comandos em comentário abaixo são OpenGL clássico e puro para implementar os shaders.
     '''vsID = glCreateShader(GL_VERTEX_SHADER) # criar o objeto vertex shader
     glShaderSource(vsID, vsSource) # enviar o código-fonte vertex shader para esse objeto
     glCompileShader(vsID) # compilar o vertex shader
@@ -83,11 +86,12 @@ def init():
         info = glGetShaderInfoLog(fsID)
         print("Erro de compilação no vertex shader.")
         print(info)'''
-    
+# --------------------------------------------------------
+# Cria o programa dos shaders
     shaderID = glCreateProgram() # criar um shader program
-    glAttachShader(shaderID, vsID)
-    glAttachShader(shaderID, fsID)
-    glLinkProgram(shaderID)
+    glAttachShader(shaderID, vsID) # linka o vertex shader
+    glAttachShader(shaderID, fsID) # linka o fragment shader
+    glLinkProgram(shaderID) # conecta eles em um só
 
 # Função para atualizar a renderização da cena.
 def render():

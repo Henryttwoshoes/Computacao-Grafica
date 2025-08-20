@@ -26,7 +26,7 @@ def create_shader_program():
 # -------------------------
 # Textura ASCII
 # -------------------------
-def create_ascii_texture(char="@", font_size=32):
+def create_ascii_texture(char=",", font_size=16):
     # cria uma imagem em tons de cinza (L)
     img = Image.new("L", (font_size, font_size), color=0)
     draw = ImageDraw.Draw(img)
@@ -91,7 +91,7 @@ def main():
 
     prog = create_shader_program()
     vao = create_quad_vao()
-    tex = create_ascii_texture("@")
+    tex = create_ascii_texture(",")
 
     # configurações da grade
     cols, rows = 40, 25

@@ -6,5 +6,5 @@ uniform sampler2D tex;
 
 void main() {
     float value = texture(tex, TexCoord).r; // pega intensidade
-    FragColor = vec4(value, value, value, 1.0); // escala de cinza
+    FragColor = vec4(0.0, value, 0.0, 1.0); // verde com intensidade do caractere
 }

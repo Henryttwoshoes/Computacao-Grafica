@@ -1,0 +1,3 @@
+vert_path = "C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Python/Brincando com ASCII/shaders/cell.vert"
+
+frag_path = "C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Python/Brincando com ASCII/shaders/cell.frag"

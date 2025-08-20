@@ -6,14 +6,9 @@ import ctypes # adiciona a tipagem da linguagem C á linguage Python
 
 
 vertices = [
-    [-0.8, -0.8],
-    [0.0, -0.8],
-    [-0.4 , 0.0],
-    [0.0 , -0.8],
-    [0.4 , 0.0],
-    [-0.4 , 0.0],
-    [0.4 , 0.0],
-    [0.0 , 0.8],
+    [-0.5, -0.5],
+    [0.5, -0.5],
+    [0. , 0.5]
 ]
 
 qtdVertices = len(vertices)
@@ -56,11 +51,11 @@ def init():
 
     # código fonte dos shaders
     # ler o arquivo vertex shader
-    with open('shaders/05_vertexShader.glsl', 'r') as file:
+    with open('C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Python/Estudos/shaders/06_vertexShader.glsl', 'r') as file:
         vsSource = file.read()
 
     # ler o arquivo fragment shader
-    with open('shaders/05_fragmentShader.glsl', 'r') as file:
+    with open('C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Python/Estudos/shaders/06_fragmentShader.glsl', 'r') as file:
         fsSource = file.read()
 
 # Comandos abaixo são uma forma mais prática que a linguagem Python disponibiliza nesse módulo de OpenGL usado no programa. Esses códigos fazem os comandos em comentário logo abaixo dispensáveis para a implementação dos shaders.

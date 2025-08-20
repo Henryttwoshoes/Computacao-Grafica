@@ -1,3 +1,24 @@
 vert_path = "C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Python/Brincando com ASCII/shaders/cell.vert"
 
 frag_path = "C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Python/Brincando com ASCII/shaders/cell.frag"
+
+def create_ascii_texture(char=",", font_size=16):
+    # cria uma imagem em tons de cinza (L)
+    img = Image.new("L", (font_size, font_size), color=0)
+    draw = ImageDraw.Draw(img)
+
+    # fonte padrão (pode trocar por TTF se quiser depois)
+    font = ImageFont.load_default()
+    draw.text((4, 4), char, font=font, fill=255)
+
+    img_data = np.array(img, dtype=np.uint8)
+
+    tex_id = glGenTextures(1)
+    glBindTexture(GL_TEXTURE_2D, tex_id)
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, img.size[0], img.size[1],
+                 0, GL_RED, GL_UNSIGNED_BYTE, img_data)
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+
+    return tex_id

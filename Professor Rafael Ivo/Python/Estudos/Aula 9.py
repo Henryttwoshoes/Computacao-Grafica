@@ -3,7 +3,7 @@ from OpenGL.GL import *
 import OpenGL.GL.shaders as gls
 import numpy as np # usado para converter a lista de vértices em um array de itens com 4 bytes(32 bits)
 import ctypes # adiciona a tipagem da linguagem C á linguage Python
-
+from shader import *
 
 '''vertices = [
     [-0.8, -0.8, 1,0,0],
@@ -31,15 +31,27 @@ faces = [
     [0,2,3]
 ]
 
+colors = [
+    [1,0,0], 
+    [0,1,0],
+    [0,0,1],
+    [1,1,0],
+    [1,0,1],
+    [0,1,1]
+]
+
+colorActive = 0
+
+
 qtdVertices = len(vertices)
 qtdFaces = len(faces)
 vaoID = 0
 shaderID = 0
-
+myShader = None
 
 # Função para configurações iniciais da minha aplicação.
 def init():
-    global vertices, vaoID, faces, shaderID
+    global vertices, vaoID, faces, myShader
     glClearColor(1,1,1,1)
     # Converte os valores da lista dos vértices para tipo float de 32 bits
     vertices = np.array(vertices, dtype=np.float32) # 32 bits = 4 bytes
@@ -83,17 +95,18 @@ def init():
 
     # código fonte dos shaders
     # ler o arquivo vertex shader
-    with open('C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Professor Rafael Ivo/Python/Estudos/shaders/06_vertexShader.glsl', 'r') as file:
-        vsSource = file.read()
+    myShader = Shader(
+    'C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Professor Rafael Ivo/Python/Estudos/shaders/06_vertexShader.glsl',
+    'C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Professor Rafael Ivo/Python/Estudos/shaders/06_fragmentShader.glsl'
+)
+
+
 
     # ler o arquivo fragment shader
     with open('C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Professor Rafael Ivo/Python/Estudos/shaders/06_fragmentShader.glsl', 'r') as file:
         fsSource = file.read()
 
-# Comandos abaixo são uma forma mais prática que a linguagem Python disponibiliza nesse módulo de OpenGL usado no programa. Esses códigos fazem os comandos em comentário logo abaixo dispensáveis para a implementação dos shaders.
-    vsID = gls.compileShader(vsSource, GL_VERTEX_SHADER)
-    fsID = gls.compileShader(fsSource, GL_FRAGMENT_SHADER)
-    shaderID = gls.compileProgram(vsID, fsID)
+
 
 # ----------------------------
 # Comandos em comentário abaixo são OpenGL clássico e puro para implementar os shaders.
@@ -115,21 +128,20 @@ def init():
         print(info)'''
 # --------------------------------------------------------
 # Cria o programa dos shaders
-    shaderID = glCreateProgram() # criar um shader program
+    '''shaderID = glCreateProgram() # criar um shader program
     glAttachShader(shaderID, vsID) # linka o vertex shader
     glAttachShader(shaderID, fsID) # linka o fragment shader
-    glLinkProgram(shaderID) # conecta eles em um só
+    glLinkProgram(shaderID) # conecta eles em um só'''
 
 # Função para atualizar a renderização da cena.
 def render():
     glClear(GL_COLOR_BUFFER_BIT)
 
 
-    glUseProgram(shaderID)
+    # glUseProgram(shaderID)
+    myShader.bind()
     glBindVertexArray(vaoID)
-    color_loc = glGetUniformLocation(shaderID, 'color')
-    glUniform3f(color_loc, 0,1,0)
-
+    myShader.setUniformv('color', colors[colorActive])
     #glDrawArrays(GL_TRIANGLES,
     #             0,
     #             qtdVertices)
@@ -139,13 +151,29 @@ def render():
                    GL_UNSIGNED_INT, # tipo de dados dos índices (outros tipos = GL_UNSIGNED_BYTE / GL_UNSIGNED_SHORT)
                    None) # Offset = quantidade de bytes a partir do início. None é pra nenhum pulo a partir do início
     glBindVertexArray(0)
-    glUseProgram(0)
+    myShader.unbind()
+
+
+def keyboard(window, key, scancode, action, mods):
+    global colorActive
+    if action == glfw.PRESS:
+        if key == glfw.KEY_ESCAPE: glfw.set_window_should_close(window, True)
+        if key == glfw.KEY_SPACE: colorActive = (colorActive + 1) % len(colors)
+
+
 
 # Função principal
 def main():
     glfw.init() # Inicializando a API GLFW
+    glfw.window_hint(glfw.CONTEXT_VERSION_MAJOR, 3)
+    glfw.window_hint(glfw.CONTEXT_VERSION_MINOR, 3)
+    glfw.window_hint(glfw.OPENGL_PROFILE, glfw.OPENGL_CORE_PROFILE)
     window = glfw.create_window(500,500,'03 - Primitvas',None,None) # Criando a janela
     glfw.make_context_current(window) # Criando o contexto OpenGL na janela
+
+    glfw.set_key_callback(window, keyboard)
+
+
     init() # Chama a função de configurações iniciais da aplicação.
     while not glfw.window_should_close(window): # Enquanto a janela não é fechada
         glfw.poll_events() # Tratamento de eventos

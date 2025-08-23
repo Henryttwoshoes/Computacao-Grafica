@@ -96,11 +96,11 @@ def init():
 
     # código fonte dos shaders
     # ler o arquivo vertex shader
-    with open('C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Python/Estudos/shaders/06_vertexShader.glsl', 'r') as file:
+    with open('C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Professor Rafael Ivo/Python/Estudos/shaders/06_vertexShader.glsl', 'r') as file:
         vsSource = file.read()
 
     # ler o arquivo fragment shader
-    with open('C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Python/Estudos/shaders/06_fragmentShader.glsl', 'r') as file:
+    with open('C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Professor Rafael Ivo/Python/Estudos/shaders/06_fragmentShader.glsl', 'r') as file:
         fsSource = file.read()
 
 # Comandos abaixo são uma forma mais prática que a linguagem Python disponibiliza nesse módulo de OpenGL usado no programa. Esses códigos fazem os comandos em comentário logo abaixo dispensáveis para a implementação dos shaders.

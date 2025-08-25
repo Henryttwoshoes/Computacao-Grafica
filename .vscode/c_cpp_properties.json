@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Dependências/glfw-3.4/include",
+                "C:/Users/Usuário/Desktop/College Things/Repositórios/Computacao-Grafica/Dependências/glew-2.1.0/include"
+            ],
+            "defines": [],
+            "compilerPath": "C:/MinGW/bin/g++.exe", // ajuste conforme seu compilador
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-x64"
+        }
+    ],
+    "version": 4
+}
